@@ -81,8 +81,8 @@ workspace/patch-linux-done: patches/linux.patch patches/fpga-axi-sdc.c patches/f
 	mkdir -p workspace && touch workspace/patch-linux-done
 
 linux-stable/arch/riscv/boot/Image: workspace/patch-linux-done
-	make -C linux-stable ARCH=riscv CROSS_COMPILE=$(CROSS_COMPILE_LINUX) oldconfig
-	make -C linux-stable ARCH=riscv CROSS_COMPILE=$(CROSS_COMPILE_LINUX) all
+	make -C linux-stable ARCH=riscv CROSS_COMPILE=$(CROSS_COMPILE_LINUX) oldconfig 
+	make -C linux-stable ARCH=riscv CROSS_COMPILE=$(CROSS_COMPILE_LINUX) all -j33
 
 
 # --- build U-Boot ---
