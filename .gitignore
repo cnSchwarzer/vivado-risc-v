@@ -10,3 +10,6 @@
 /project/project/target/
 /generators/targetutils/target/
 /bare-metal/hello-world/boot.elf
+vivado.log
+vivado.jou
+vivado*.str
