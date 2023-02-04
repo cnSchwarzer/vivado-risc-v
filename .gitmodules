@@ -22,6 +22,9 @@
 [submodule "generators/gemmini"]
 	path = generators/gemmini
 	url = https://github.com/ucb-bar/gemmini
+[submodule "generators/reito"]
+	path = generators/reito
+	url = https://github.com/cnSchwarzer/riscv-reito
 [submodule "opensbi"]
 	path = opensbi
 	url = https://github.com/riscv/opensbi.git
