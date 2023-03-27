@@ -13,9 +13,14 @@ lazy val vivado = (project in file("."))
   .dependsOn(rocketchip)
   .dependsOn(sifive_cache)
   .dependsOn(gemmini)
+  .dependsOn(reito)
   .settings(commonSettings)
 
 lazy val rocketchip = (project in file("rocket-chip"))
+  .settings(commonSettings)
+
+lazy val reito = (project in file("generators/reito"))
+  .dependsOn(rocketchip)
   .settings(commonSettings)
 
 lazy val testchipip = (project in file("generators/testchipip"))

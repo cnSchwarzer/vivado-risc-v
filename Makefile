@@ -189,7 +189,8 @@ CHISEL_SRC_DIRS = \
   generators/gemmini/src/main \
   generators/riscv-boom/src/main \
   generators/sifive-cache/design/craft \
-  generators/testchipip/src/main
+  generators/testchipip/src/main \
+  generators/reito/src/main
 
 CHISEL_SRC := $(foreach path, $(CHISEL_SRC_DIRS), $(shell test -d $(path) && find $(path) -iname "*.scala"))
 FIRRTL = java -Xmx12G -Xss8M $(JAVA_OPTIONS) -cp target/scala-2.12/classes:rocket-chip/rocketchip.jar firrtl.stage.FirrtlMain
