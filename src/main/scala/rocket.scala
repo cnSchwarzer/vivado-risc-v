@@ -125,6 +125,7 @@ class RocketWideBusConfig extends Config(
   new BaseConfig)
 
 class Rocket64b1 extends Config(
+  new reito.WithReito     ++
   new WithNBreakpoints(8) ++
   new WithNBigCores(1)    ++
   new RocketBaseConfig)

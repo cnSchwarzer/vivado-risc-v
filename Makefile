@@ -71,7 +71,7 @@ debian-riscv64/rootfs.tar.gz:
 .PHONY: linux
 linux: linux-stable/arch/riscv/boot/Image
 
-CROSS_COMPILE_LINUX = /usr/bin/riscv64-linux-gnu-
+CROSS_COMPILE_LINUX = /opt/riscv/bin/riscv64-unknown-linux-gnu-
 
 workspace/patch-linux-done: patches/linux.patch patches/fpga-axi-sdc.c patches/fpga-axi-eth.c patches/linux.config
 	if [ -s patches/linux.patch ] ; then cd linux-stable && ( git apply -R --check ../patches/linux.patch 2>/dev/null || git apply ../patches/linux.patch ) ; fi
@@ -118,13 +118,13 @@ workspace/patch-u-boot-done: u-boot/configs/vivado_riscv64_defconfig
 	mkdir -p workspace && touch workspace/patch-u-boot-done
 
 u-boot/u-boot-nodtb.bin: workspace/patch-u-boot-done $(U_BOOT_SRC)
-	make -C u-boot CROSS_COMPILE=$(CROSS_COMPILE_LINUX) BOARD=vivado_riscv64 vivado_riscv64_config
+	make -C u-boot CROSS_COMPILE=$(CROSS_COMPILE_LINUX) BOARD=vivado_riscv64 vivado_riscv64_config -j33
 	make -C u-boot \
 	  BOARD=vivado_riscv64 \
-	  CC=$(CROSS_COMPILE_LINUX)gcc-8 \
+	  CC=$(CROSS_COMPILE_LINUX)gcc \
 	  CROSS_COMPILE=$(CROSS_COMPILE_LINUX) \
 	  KCFLAGS='-O1 -gno-column-info' \
-	  all
+	  all -j33
 
 u-boot-qemu:
 	cd qemu/ && if [ ! -d u-boot ]; then git clone ../u-boot; fi && cd u-boot && git checkout v2022.01
@@ -142,7 +142,7 @@ opensbi/build/platform/vivado-risc-v/firmware/fw_payload.elf: $(wildcard patches
 	mkdir -p opensbi/platform/vivado-risc-v
 	cp -p -r patches/opensbi/* opensbi/platform/vivado-risc-v
 	make -C opensbi CROSS_COMPILE=$(CROSS_COMPILE_LINUX) PLATFORM=vivado-risc-v \
-	 FW_PAYLOAD_PATH=`realpath u-boot/u-boot-nodtb.bin`
+	 FW_PAYLOAD_PATH=`realpath u-boot/u-boot-nodtb.bin` -j33
 
 opensbi-qemu:
 	cd qemu && if [ ! -d opensbi ]; then git clone ../opensbi; fi
